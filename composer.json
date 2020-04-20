@@ -1,0 +1,24 @@
+{
+    "name": "lspbupt/yii2-feishu",
+    "type": "yii2-extension",
+    "description": "feishu API for yii2 framework",
+    "keywords": ["yii2", "extension", "feishu", "bytedance"],
+    "homepage": "https://github.com/buptlsp/yii2-feishu",
+    "type": "yii2-extension",
+    "license": "BSD-3-Clause",
+    "authors": [
+        {
+            "name": "李仕鹏",
+            "email": "lspbupt@sina.com"
+        }
+    ],
+    "require": {
+        "php": ">=7.1.0",
+        "lspbupt/yii2-curl": "*"
+    },
+    "autoload": {
+        "psr-4": {
+            "lspbupt\\feishu\\": "src/"
+        }
+    }
+}
