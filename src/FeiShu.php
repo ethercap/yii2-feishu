@@ -4,9 +4,6 @@ namespace lspbupt\feishu;
 
 class FeiShu extends BaseFeiShu
 {
-    public $appId = '';
-    public $appSecret = '';
-
     public $tokenUrl = '/auth/v3/app_access_token/internal/';
 
     public function getToken()

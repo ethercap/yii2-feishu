@@ -12,6 +12,9 @@ class HttpClient extends CurlHttp
     public $appSecret = '';
     public $cache = 'cache';
 
+    public $host = 'open.feishu.cn';
+    public $protocol = 'https';
+
     // 不会被截获的url请求，一般为不需要认证的接口及获取token的接口
     public $excludeActions = [];
     //主要的token, 一般为tenant token
@@ -59,7 +62,7 @@ class HttpClient extends CurlHttp
             empty($expire) && $expire = 3600;
             $this->cache->set($key, $token, $expire - 10);
         }
-        return '';
+        return $token;
     }
 
     // 需要上层覆盖
