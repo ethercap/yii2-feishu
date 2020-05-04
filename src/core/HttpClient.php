@@ -24,33 +24,38 @@ class HttpClient extends CurlHttp
     {
         parent::init();
         $this->cache = Instance::ensure($this->cache, Cache::className());
-        $this->beforeRequest = function ($params, $curlhttp) {
-            $action = trim($curlhttp->getAction());
-            if (!in_array($action, $curlhttp->excludeActions)) {
-                $ch = clone $curlhttp;
-                $token = $ch->getTokenFromCache();
-                $curlhttp->setBaAuthor($token);
-            }
-            return $params;
-        };
-        $this->afterRequest = function ($output, $curlhttp) {
-            $data = json_decode($output, true);
-            if (empty($output) || empty($data)) {
-                return [
-                    'code' => 1,
-                    'msg' => yii::t('feishu', 'network error!'),
-                ];
-            }
-            return $data;
-        };
+     }
+    
+    protected function beforeCurl($params)
+    {
+        $action = trim($this->getAction());
+        if (!in_array($action, $this->excludeActions)) {
+            $ch = clone $this;
+            $token = $ch->getTokenFromCache();
+            $this->setBaAuthor($token);
+        }
+        return parent::beforeCurl($params);
     }
+
+    protected function afterCurl($output)
+    {
+        $data = json_decode($output, true);
+        if (empty($output) || empty($data)) {
+            return [
+                'code' => 1,
+                'msg' => yii::t('feishu', 'network error!'),
+            ];
+        }
+        return parent::afterCurl($data);
+    }
+
 
     public function setBaAuthor($token)
     {
         $this->setHeader('Authorization', 'Bearer '.$token);
     }
 
-    public function getTokenfromCache()
+    public function getTokenFromCache()
     {
         $key = $this->tokenCacheKey.$this->appId;
         $token = $this->cache->get($key, '');
