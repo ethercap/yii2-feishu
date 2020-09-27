@@ -14,7 +14,6 @@ class CorpApp extends App
     public function getToken(&$expire = 3600)
     {
         $data = $this->setPostJson()
-            ->setDebug()
             ->httpExec($this->tokenUrl, [
                 'app_id' => $this->appId,
                 'app_secret' => $this->appSecret,
@@ -29,7 +28,6 @@ class CorpApp extends App
     public function getAppToken(&$expire = 3600)
     {
         $data = $this->setPostJson()
-            ->setDebug()
             ->httpExec($this->appTokenUrl, [
                 'app_id' => $this->appId,
                 'app_secret' => $this->appSecret,
