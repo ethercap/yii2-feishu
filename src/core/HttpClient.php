@@ -43,7 +43,7 @@ class HttpClient extends CurlHttp
         if (empty($output) || empty($data)) {
             return [
                 'code' => 1,
-                'msg' => yii::t('feishu', 'network error!'),
+                'msg' => \yii::t('feishu', 'network error!'),
             ];
         }
         return parent::afterCurl($data);
@@ -52,6 +52,9 @@ class HttpClient extends CurlHttp
 
     public function setBaAuthor($token)
     {
+        if($this->isDebug()) {
+            echo "Authorization: Bearer ".$token."\n";
+        }
         $this->setHeader('Authorization', 'Bearer '.$token);
     }
 
